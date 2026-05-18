@@ -44,6 +44,23 @@ pub async fn senduser(
     Json(body): Json<CreateUser>,
 ) -> Result<Json<Users>, StatusCode> {
 
+    let user_exist: Option<String> = sqlx::query_scalar(
+    "
+    SELECT username
+    FROM users
+    WHERE username = $1 OR email = $2
+    "
+    )
+    .bind(&body.username)
+    .bind(&body.email)
+    .fetch_optional(&pool)
+    .await
+    .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
+
+    if user_exist.is_some() {
+        return Err(StatusCode::CONFLICT);
+    }
+
     let send = sqlx::query_as::<_, Users>(
         "
         INSERT INTO users (

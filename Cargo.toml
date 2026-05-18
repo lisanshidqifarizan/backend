@@ -1,14 +1,9 @@
 [package]
-<<<<<<< HEAD
 name = "tb"
-=======
-name = "backend"
->>>>>>> 9764a23a2c3e68281c6351185477aed82c31c39f
 version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-<<<<<<< HEAD
 tokio = {version="1.52.3", features=["full"]}
 axum = "0.8.9"
 serde = {version="1.0.228", features=["derive"]}
@@ -16,13 +11,3 @@ dotenv = "0.15.0"
 uuid = {version="1.23.1", features = ["v4", "serde"]}
 chrono = { version = "0.4", features = ["serde"] }
 sqlx = {version="0.8.6", features=["runtime-tokio-rustls","postgres","uuid","chrono"]}
-=======
-axum = "0.7"
-tokio = { version = "1", features = ["full"] }
-serde = { version = "1", features = ["derive"] }
-mongodb = "3.4.1"
-serde_json = "1"
-tower-http = { version = "0.5", features = ["cors"] }
-dotenvy = "0.15.7"
-futures = "0.3.31"
->>>>>>> 9764a23a2c3e68281c6351185477aed82c31c39f

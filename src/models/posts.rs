@@ -15,6 +15,7 @@ use uuid::Uuid;
 pub struct CreatePost {
     pub user_id: Uuid,
     pub title: String,
+    pub slug: String,
     pub content: String,
 }
 
@@ -22,11 +23,20 @@ pub struct CreatePost {
 pub struct Posts {
     pub id: Uuid,
     pub title: String,
+    pub slug: String,
     pub content: String,
-    pub tags: Option<Vec<String>>,
+    pub tags: Vec<String>,
     pub likes: i32,
     pub views: i32,
     pub user_id: Uuid,
     pub created_at: DateTime<Utc>,
     pub updated_at: DateTime<Utc>,
+}
+
+#[derive(Deserialize)]
+pub struct PutPost {
+    pub title: String,
+    pub slug: String,
+    pub content: String,
+    pub tags: Option<Vec<String>>,
 }
