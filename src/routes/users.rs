@@ -6,11 +6,10 @@ use axum::{
     Json,
 };
 
-use sqlx::PgPool;
+use sqlx::{PgPool};
 
 use crate::models::users::{
-    CreateUser,
-    Users,
+    CreateUser, LoginQuery, LoginUser, MessageResponse, Users
 };
 
 pub async fn getusers(
@@ -93,4 +92,41 @@ pub async fn senduser(
     .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
 
     Ok(Json(send))
+}
+
+pub async fn loginuser(
+    State(pool): State<PgPool>,
+    Json(body): Json<LoginUser>
+) -> Result<(StatusCode, Json<MessageResponse>), StatusCode> {
+
+    let exact_user = sqlx::query_as::<_, LoginQuery>(
+        "
+        SELECT
+            id,
+            username,
+            email
+
+        FROM users
+
+        WHERE (username = $1 OR email = $1)
+        AND password = $2
+
+        LIMIT 1
+        "
+    )
+    .bind(&body.identifier)
+    .bind(&body.password)
+    .fetch_optional(&pool)
+    .await
+    .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
+
+    match exact_user {
+        Some(_) => Ok((
+            StatusCode::OK,
+            Json(MessageResponse {
+                message: format!("Login berhasil Halo {}", &body.identifier),
+            }),
+        )),
+        None => Err(StatusCode::UNAUTHORIZED)
+    }
 }

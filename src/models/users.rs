@@ -41,3 +41,21 @@ pub struct Users {
     pub updated_at: DateTime<Utc>,
     pub avatar: Option<String>,
 }
+
+#[derive(Deserialize)]
+pub struct LoginUser {
+    pub identifier: String, //* username atau email */
+    pub password: String,
+}
+
+#[derive(FromRow)]
+pub struct LoginQuery {
+    pub id: Uuid,
+    pub username: String,
+    pub email: String,
+}
+
+#[derive(Serialize)]
+pub struct MessageResponse {
+    pub message: String,
+}

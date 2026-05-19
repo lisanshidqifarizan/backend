@@ -121,12 +121,12 @@ pub async fn putpost(
         UPDATE posts
         SET
             title = $1,
-            slug = %2
+            slug = %2,
             content = $3,
             tags = $4,
             updated_at = NOW()
 
-        WHERE id = $4
+        WHERE id = $5
 
         RETURNING
             id,

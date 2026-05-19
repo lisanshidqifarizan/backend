@@ -97,6 +97,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "backend"
+version = "0.1.0"
+dependencies = [
+ "axum",
+ "chrono",
+ "dotenv",
+ "serde",
+ "sqlx",
+ "tokio",
+ "uuid",
+]
+
+[[package]]
 name = "base64"
 version = "0.22.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1623,19 +1636,6 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn",
-]
-
-[[package]]
-name = "tb"
-version = "0.1.0"
-dependencies = [
- "axum",
- "chrono",
- "dotenv",
- "serde",
- "sqlx",
- "tokio",
- "uuid",
 ]
 
 [[package]]
