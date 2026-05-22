@@ -121,10 +121,10 @@ pub async fn loginuser(
     .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
 
     match exact_user {
-        Some(_) => Ok((
+        Some(user) => Ok((
             StatusCode::OK,
             Json(MessageResponse {
-                message: format!("Login berhasil Halo {}", &body.identifier),
+                message: format!("Login berhasil Halo {}", user.username),
             }),
         )),
         None => Err(StatusCode::UNAUTHORIZED)
